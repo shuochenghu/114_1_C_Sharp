@@ -58,7 +58,7 @@
             // italianButton
             // 
             this.italianButton.Font = new System.Drawing.Font("新細明體", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.italianButton.Location = new System.Drawing.Point(65, 312);
+            this.italianButton.Location = new System.Drawing.Point(72, 312);
             this.italianButton.Name = "italianButton";
             this.italianButton.Size = new System.Drawing.Size(181, 66);
             this.italianButton.TabIndex = 2;

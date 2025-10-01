@@ -85,7 +85,7 @@
             this.finlandPictureBox.Image = global::Tutorial_2_4.Properties.Resources.Finland;
             this.finlandPictureBox.Location = new System.Drawing.Point(81, 208);
             this.finlandPictureBox.Name = "finlandPictureBox";
-            this.finlandPictureBox.Size = new System.Drawing.Size(284, 167);
+            this.finlandPictureBox.Size = new System.Drawing.Size(304, 167);
             this.finlandPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.finlandPictureBox.TabIndex = 2;
             this.finlandPictureBox.TabStop = false;

@@ -31,5 +31,7 @@ namespace Tutorial_2_3
         {
             translationLabel.Text = "Guten Morgen";
         }
+
+        
     }
 }

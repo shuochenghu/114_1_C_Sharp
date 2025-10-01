@@ -39,7 +39,7 @@
             // cardBackPictureBox
             // 
             this.cardBackPictureBox.Image = global::Tutorial_2_5.Properties.Resources.Backface_Red;
-            this.cardBackPictureBox.Location = new System.Drawing.Point(254, 71);
+            this.cardBackPictureBox.Location = new System.Drawing.Point(265, 56);
             this.cardBackPictureBox.Name = "cardBackPictureBox";
             this.cardBackPictureBox.Size = new System.Drawing.Size(301, 428);
             this.cardBackPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -49,7 +49,7 @@
             // cardFacePictureBox
             // 
             this.cardFacePictureBox.Image = global::Tutorial_2_5.Properties.Resources.Ace_Hearts;
-            this.cardFacePictureBox.Location = new System.Drawing.Point(254, 71);
+            this.cardFacePictureBox.Location = new System.Drawing.Point(265, 56);
             this.cardFacePictureBox.Name = "cardFacePictureBox";
             this.cardFacePictureBox.Size = new System.Drawing.Size(301, 428);
             this.cardFacePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
