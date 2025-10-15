@@ -27,7 +27,8 @@ namespace Change_Counter
 
         private void fiveCentsPictureBox_Click(object sender, EventArgs e)
         {
-            
+
+            decimal total = 0m;
             total += FIVE_CENT;
             totalLabel.Text = total.ToString();
         }

@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Payroll_with_Overtime
+{
+    public partial class Form1 : Form
+    {
+        // 建構子：初始化表單元件
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        // 當使用者點擊「計算薪資」按鈕時觸發的事件處理函式
+        private void calculateButton_Click(object sender, EventArgs e)
+        {
+            // 這裡可以加入薪資計算的邏輯
+            const decimal BASE_HOURS = 40m;
+            const decimal OT_MULTIPLIER = 1.5m;
+
+            decimal hoursWorked;
+            decimal hourlyPayRate;
+            decimal grossPay;
+
+            try
+            {
+                hoursWorked = decimal.Parse(hoursWorkedTextBox.Text);
+                hourlyPayRate = decimal.Parse(hourlyPayRateTextBox.Text);
+                if (hoursWorked <= BASE_HOURS)
+                {
+                    grossPay = hoursWorked * hourlyPayRate;
+                }
+                else
+                {
+                    grossPay = (BASE_HOURS * hourlyPayRate) + 
+                        ((hoursWorked - BASE_HOURS) * hourlyPayRate * OT_MULTIPLIER);
+                }
+                grossPayLabel.TextAlign = ContentAlignment.MiddleCenter;
+                grossPayLabel.Text = grossPay.ToString("C");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        // 當使用者點擊「清除」按鈕時觸發的事件處理函式
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            // 清空工時、時薪輸入框與薪資顯示標籤
+            hoursWorkedTextBox.Text = "";
+            hourlyPayRateTextBox.Text = "";
+            grossPayLabel.Text = "";
+
+            // 將游標焦點設回工時輸入框，方便再次輸入
+            hoursWorkedTextBox.Focus();
+        }
+
+        // 當使用者點擊「離開」按鈕時觸發的事件處理函式
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            // 關閉表單，結束程式
+            this.Close();
+        }
+    }
+}
