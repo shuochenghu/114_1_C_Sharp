@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckBoxDemo", "CheckBoxDemo\CheckBoxDemo.csproj", "{9087EA35-F2BC-497D-879A-990233E62A2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9087EA35-F2BC-497D-879A-990233E62A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9087EA35-F2BC-497D-879A-990233E62A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9087EA35-F2BC-497D-879A-990233E62A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9087EA35-F2BC-497D-879A-990233E62A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {558FC7A5-73E0-4F4D-BEF1-D90E200C9AA8}
+	EndGlobalSection
+EndGlobal
