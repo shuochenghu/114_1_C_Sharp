@@ -57,8 +57,9 @@
             "檀香山",
             "明尼亞波利斯",
             "紐約",
-            "舊金山"});
-            this.cityListBox.Location = new System.Drawing.Point(188, 82);
+            "舊金山",
+            "台北"});
+            this.cityListBox.Location = new System.Drawing.Point(189, 111);
             this.cityListBox.Margin = new System.Windows.Forms.Padding(4);
             this.cityListBox.Name = "cityListBox";
             this.cityListBox.Size = new System.Drawing.Size(317, 204);

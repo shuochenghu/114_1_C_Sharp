@@ -21,7 +21,7 @@ namespace Time_Zone
         {
             string city;
 
-            if (cityListBox.SelectedIndex != -1)  
+            if (cityListBox.SelectedIndex != -1)  //檢查是否選擇了項目
             {
                 city = cityListBox.SelectedItem.ToString();
 
@@ -41,6 +41,9 @@ namespace Time_Zone
                         break;
                     case "舊金山":
                         timeZoneLabel.Text = "太平洋標準時間";
+                        break;
+                    default:
+                        timeZoneLabel.Text = "沒有資料";
                         break;
                 }
 

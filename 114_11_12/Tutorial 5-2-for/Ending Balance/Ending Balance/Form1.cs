@@ -1,0 +1,96 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Ending_Balance
+{
+    // 主表單類別：負責處理使用者介面事件 (計算、清除、結束)
+    // Form1 包含三個按鈕事件處理常見的表單邏輯與一些輸入/輸出控制項。
+    public partial class Form1 : Form
+    {
+        // 建構子：初始化表單與其控制項
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        // 計算按鈕的事件處理程序
+        // 當使用者按下「計算」按鈕時會觸發此方法。
+        // 目前此方法為空；應在此處加入：
+        // 1. 讀取使用者在 startingBalTextBox 與 monthsTextBox 的輸入。
+        // 2. 驗證輸入是否為有效的數值（例如是否為數字、是否為正數、是否為整數等）。
+        // 3. 根據題目需求計算每月或整體的結餘（例如利率與累積邏輯），並將詳細資訊加入 detailListBox。
+        // 4. 將最終結果格式化後顯示在 endingBalanceLabel 上。
+        // 5. 處理例外或錯誤輸入，顯示友善的錯誤訊息給使用者。
+        private void calculateButton_Click(object sender, EventArgs e)
+        {
+            const decimal INTEREST_RATE = 0.005m; // 每月利率 0.5%
+
+            decimal startingBalance; // 使用者輸入的起始餘額
+            int months;              // 使用者輸入的月份數量
+
+
+            if (decimal.TryParse(startingBalTextBox.Text, out startingBalance))
+            {
+                if (int.TryParse(monthsTextBox.Text, out months) && months > 0)
+                {
+                   for (int count = 1; count <= months; count++)
+                   {
+                        // 計算當月結餘
+                        startingBalance *=  (1 + INTEREST_RATE);
+
+                        // 將當月詳細資訊加入清單框
+                        detailListBox.Items.Add("第 " + count + "個月結餘: " + startingBalance.ToString("c2"));
+
+                   }
+                    // 顯示最終結餘
+                    endingBalanceLabel.Text = startingBalance.ToString("C2");
+                }
+                else
+                {
+                    MessageBox.Show("請輸入有效的月份數量（正整數）。", "輸入錯誤");
+                }
+            }
+            else
+            {
+                MessageBox.Show("請輸入有效的起始餘額。", "輸入錯誤");
+            }
+        }
+
+        // 清除按鈕的事件處理程序
+        // 當使用者按下「清除」按鈕時會觸發此方法。
+        // 此方法會：
+        // - 清除輸入框 (startingBalTextBox, monthsTextBox) 的文字
+        // - 清除顯示結餘的標籤 (endingBalanceLabel)
+        // - 清空詳細紀錄清單 (detailListBox)
+        // - 將鍵盤焦點重設回起始餘額的輸入框，方便使用者繼續輸入
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            // Clear the TextBoxes, the endingBalanceLabel control,
+            // and the ListBox.
+            startingBalTextBox.Text = "";
+            monthsTextBox.Text = "";
+            endingBalanceLabel.Text = "";
+            detailListBox.Items.Clear();
+
+            // Reset the focus.
+            // 將輸入焦點設回起始餘額輸入框，提升使用者體驗。
+            startingBalTextBox.Focus();
+        }
+
+        // 結束按鈕的事件處理程序
+        // 當使用者按下「退出」按鈕時會觸發此方法，該方法會關閉表單，進而結束應用程式（若為唯一表單）。
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            // Close the form.
+            // 關閉目前表單，釋放資源並結束應用程式執行（如果沒有其他表單開啟）。
+            this.Close();
+        }
+    }
+}
