@@ -40,13 +40,14 @@ namespace Ending_Balance
             {
                 if (int.TryParse(monthsTextBox.Text, out months) && months > 0)
                 {
-                   for (int count = 1; count <= months; count++)
+                   //for (int count = 1; count <= months; count++)
+                   for (int count = months; count >= 1; --count)
                    {
                         // 計算當月結餘
                         startingBalance *=  (1 + INTEREST_RATE);
 
                         // 將當月詳細資訊加入清單框
-                        detailListBox.Items.Add("第 " + count + "個月結餘: " + startingBalance.ToString("c2"));
+                        detailListBox.Items.Add("第 " + (months-count+1) + "個月結餘: " + startingBalance.ToString("c2"));
 
                    }
                     // 顯示最終結餘
