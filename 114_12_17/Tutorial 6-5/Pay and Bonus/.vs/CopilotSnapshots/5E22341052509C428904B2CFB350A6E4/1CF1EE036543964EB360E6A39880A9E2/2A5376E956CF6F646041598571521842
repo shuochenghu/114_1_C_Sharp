@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Pay_and_Bonus
+{
+    /// <summary>
+    /// 主表單類別：薪資與獎金計算器
+    /// 此表單用於計算員工的退休金提撥金額
+    /// </summary>
+    public partial class Form1 : Form
+    {
+        // 常數欄位：退休金提撥比率 (5%)
+        // 此比率用於計算員工退休金帳戶的提撥金額
+        private const decimal CONTRIB_RATE = 0.05m;
+
+        /// <summary>
+        /// 表單建構子：初始化表單元件
+        /// </summary>
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        // InputIsValid 方法：驗證並轉換使用者輸入
+        // 此方法將使用者輸入的文字轉換為數值，並透過參考參數傳遞儲存
+        // 如果轉換成功，方法回傳 true；否則回傳 false
+        
+
+        /// <summary>
+        /// 計算按鈕點擊事件處理程序
+        /// 當使用者點擊「計算提撥」按鈕時執行
+        /// 功能：計算並顯示退休金提撥金額
+        /// </summary>
+        /// <param name="sender">事件發送者</param>
+        /// <param name="e">事件參數</param>
+        private void calculateButton_Click(object sender, EventArgs e)
+        {
+           // 此處應實作計算邏輯
+           // 步驟：
+           // 1. 取得總薪資金額和獎金金額
+           // 2. 將兩者相加得到總收入
+           // 3. 將總收入乘以提撥比率 (5%)
+           // 4. 在輸出標籤中顯示計算結果
+        }
+
+        /// <summary>
+        /// 離開按鈕點擊事件處理程序
+        /// 當使用者點擊「離開」按鈕時執行
+        /// 功能：關閉應用程式視窗
+        /// </summary>
+        /// <param name="sender">事件發送者</param>
+        /// <param name="e">事件參數</param>
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            // 關閉表單，結束應用程式
+            this.Close();
+        }
+    }
+}

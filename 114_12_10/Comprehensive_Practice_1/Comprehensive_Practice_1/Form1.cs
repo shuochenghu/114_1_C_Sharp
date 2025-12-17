@@ -47,14 +47,14 @@ namespace Comprehensive_Practice_1
         {
             int highestScore = 0;
 
-            findHighestScore(quiz1, quiz2, quiz3, ref highestScore);          
+            findHighestScore(quiz1, quiz2, quiz3,  out highestScore);          
 
             lblResult.Text = string.Format("{0}{1}的最高成績是 {2} 分", givenName, surname, highestScore);
 
             //MessageBox.Show(string.Format("Quiz2 = {0}", quiz2));
         }
 
-        private void findHighestScore(int quiz1, int quiz2, int quiz3, ref int highestScore)
+        private void findHighestScore(int quiz1, int quiz2, int quiz3,  out int highestScore)
         {
             if (quiz1 >= quiz2 && quiz1 >= quiz3)
             {

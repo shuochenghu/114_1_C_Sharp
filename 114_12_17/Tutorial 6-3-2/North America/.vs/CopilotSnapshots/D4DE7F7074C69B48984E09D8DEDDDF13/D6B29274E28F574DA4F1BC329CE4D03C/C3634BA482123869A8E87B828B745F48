@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+
+namespace North_America
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        // GetFileName 方法從使用者取得檔案名稱
+        // 並將它指派給作為參數傳遞的變數。
+
+        // GetCountries 方法接受一個檔案名稱作為參數。
+        // 它會開啟指定的檔案，並在 countriesListBox 控制項中
+        // 顯示其內容。
+        
+
+        private void getCountriesButton_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            // 關閉表單。
+            this.Close();
+        }
+
+    }
+}
