@@ -1,0 +1,40 @@
+================================================
+控件名稱快速參考表
+================================================
+
+機油和潤滑服務：
+  oilChangeCheckBox      - 更換機油
+  lubeCheckBox          - 潤滑保養
+
+清洗服務：
+  radiatorFlushCheckBox      - 水箱清洗
+  transmissionFlushCheckBox  - 變速箱清洗
+
+其他服務：
+  inspectionCheckBox    - 檢驗
+  mufflerCheckBox       - 更換消音器
+  tireRotationCheckBox  - 輪胎換位
+
+零件和工時輸入：
+  partsTextBox         - 零件費用輸入
+  laborTextBox         - 工時費用輸入
+
+費用顯示：
+  serviceLaborValueLabel  - 服務和工時總額
+  partsValueLabel         - 零件費用
+  taxValueLabel           - 稅金
+  totalFeesValueLabel     - 總費用
+
+按鈕：
+  calculateButton      - 計算總額
+  clearButton          - 清除
+  exitButton           - 離開
+
+群組框：
+  oilLubeGroupBox      - 機油和潤滑群組
+  flushesGroupBox      - 清洗服務群組
+  miscGroupBox         - 其他服務群組
+  partsLaborGroupBox   - 零件和工時群組
+  summaryGroupBox      - 費用摘要群組
+
+================================================

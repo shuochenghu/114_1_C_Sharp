@@ -1,0 +1,57 @@
+================================================
+事件處理方法重命名 - 快速參考
+================================================
+
+【重命名對照表】
+┌─────────────┬──────────────┬────────────────────┐
+│  控件名稱   │  原方法名稱  │   新方法名稱       │
+├─────────────┼──────────────┼────────────────────┤
+│calculateButton│button1_Click │calculateButton_Click│
+│clearButton   │button2_Click │clearButton_Click   │
+│exitButton    │button3_Click │exitButton_Click    │
+└─────────────┴──────────────┴────────────────────┘
+
+【命名格式】
+控件名稱_事件名稱
+
+範例：
+? calculateButton_Click
+? clearButton_Click
+? exitButton_Click
+
+【修改的檔案】
+? Form1.cs - 方法定義
+? Form1.Designer.cs - 事件訂閱
+
+【命名規則】
+1. 使用控件的 Name 屬性
+2. 加上底線 _
+3. 加上事件名稱（如 Click）
+
+【好的命名】
+? saveButton_Click        // 清楚明確
+? loadButton_Click        // 容易理解
+? searchButton_Click      // 表達功能
+
+【不好的命名】
+? button1_Click           // 無意義編號
+? button2_Click           // 不知道功能
+? Click1                  // 過於簡化
+
+【優點】
+? 提高可讀性
+? 易於維護
+? 符合慣例
+? 自我說明
+
+【完整方法列表】
+1. calculateButton_Click - 計算總額
+2. clearButton_Click - 清除表單
+3. exitButton_Click - 離開程式
+
+【驗證結果】
+? 編譯成功
+? 無錯誤
+? 功能正常
+
+================================================

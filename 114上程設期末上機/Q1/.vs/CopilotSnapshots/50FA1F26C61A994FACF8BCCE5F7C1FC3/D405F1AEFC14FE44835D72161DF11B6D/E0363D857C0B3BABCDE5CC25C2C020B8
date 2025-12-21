@@ -1,0 +1,99 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Program6_10
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        Random rand = new Random();
+        string compChoice, myChoice, winner;
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            getCompChoice();
+        }
+
+        private void getCompChoice()
+        {
+            label1.Text = "";
+
+            switch (rand.Next(3) + 1)
+            {
+                case 1: compChoice = "Rock"; break;
+                case 2: compChoice = "Paper"; break;
+                case 3: compChoice = "Scissors"; break;
+            }
+        }
+
+        private void showWinner()
+        {
+            if (myChoice == "Rock" && compChoice == "Scissors")
+            {
+                winner = "player";
+            }
+            else if (myChoice == "Scissors" && compChoice == "Rock")
+            {
+                winner = "computer";
+            }
+            else if (myChoice == "Scissors" && compChoice == "Paper")
+            {
+                winner = "player";
+            }
+            else if (myChoice == "Paper" && compChoice == "Scissors")
+            {
+                winner = "computer";
+            }
+            else if (myChoice == "Paper" && compChoice == "Rock")
+            {
+                winner = "player";
+            }
+            else if (myChoice == "Rock" && compChoice == "Paper")
+            {
+                winner = "computer";
+            }
+            else
+            {
+                winner = "none";
+            }
+
+            label1.Text = "The Computer selects " + compChoice + ".\n" +
+                   "The winner is " + winner + ".";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            myChoice = "Rock";
+            showWinner();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            myChoice = "Paper";
+            showWinner();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            myChoice = "Scissors";
+            showWinner();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            getCompChoice();
+        }
+
+
+    }
+}

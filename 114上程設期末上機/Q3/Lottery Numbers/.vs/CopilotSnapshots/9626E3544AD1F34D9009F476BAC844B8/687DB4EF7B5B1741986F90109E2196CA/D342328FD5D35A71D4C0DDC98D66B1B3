@@ -1,0 +1,230 @@
+﻿# C# Windows Forms 程式設計考試題目
+
+## 樂透號碼產生器專案
+
+### 專案概述
+本考試要求學生實作一個樂透號碼產生器應用程式，該程式能夠產生隨機號碼、讀取開獎號碼檔案，並進行中獎比對。
+
+### 技術要求
+- **開發環境**: .NET Framework 4.8
+- **介面技術**: Windows Forms
+- **程式語言**: C# 7.3
+
+### 功能需求
+
+#### 介面設計
+設計一個具有良好使用者體驗的視窗程式，包含號碼顯示區域、操作按鈕區域，以及結果顯示區域。程式需要支援18pt字體大小以確保良好的可讀性。
+
+#### 檔案處理功能
+實作檔案讀取功能，能夠開啟文字檔案並解析其中的開獎號碼資料。檔案格式為每行一個數字，共計五行。程式需要具備完整的錯誤處理機制，能夠處理檔案不存在、格式錯誤、數字超出範圍等異常情況。
+
+#### 亂數產生功能
+實作亂數產生演算法，能夠產生指定範圍內的不重複隨機數字。學生需要使用基本的程式語法（迴圈、條件判斷、陣列）來實現，避免使用進階的資料結構或內建方法。
+
+#### 比對與獎項判定
+設計比對機制來判斷使用者產生的號碼與開獎號碼的相符程度，並根據中獎數量給予對應的獎項等級。程式需要清楚地顯示比對結果和中獎資訊。
+
+#### 控制邏輯
+實作適當的程式流程控制，確保使用者按照正確順序操作程式。程式應該具備狀態管理能力，在適當時機啟用或停用特定功能。
+
+### 評分重點
+- **程式邏輯**: 演算法的正確性與效率
+- **錯誤處理**: 異常情況的處理完整度
+- **介面設計**: 使用者操作的直觀性
+- **程式架構**: 程式碼的組織與可讀性
+- **功能完整性**: 所有需求的實現程度
+
+### 檔案說明
+- 程式需要能夠讀取格式化的文字檔案
+- 每個開獎號碼檔案包含五個數字（1-49範圍）
+- 每行包含一個數字
+- 程式需要驗證數字的有效性
+
+### 需要實作的核心方法
+
+#### 事件處理方法
+學生需要實作以下按鈕點擊事件的處理方法：
+- **產生號碼按鈕事件**: 負責產生隨機號碼並顯示在介面上
+- **開獎號碼按鈕事件**: 處理檔案選擇與讀取開獎號碼的流程
+- **離開按鈕事件**: 提供程式結束的功能
+
+#### 核心功能方法
+- **號碼比對方法**: 實作使用者號碼與開獎號碼的比對邏輯，計算中獎數量並判定獎項等級
+- **檔案讀取邏輯**: 使用 `StreamReader` 和 `OpenFileDialog` 進行檔案操作
+- **不重複亂數產生**: 使用基本迴圈和條件判斷實現不重複數字的產生
+
+#### 必須使用的技術元素
+- **陣列操作**: 儲存和處理號碼資料
+- **迴圈結構**: `for` 迴圈進行數字產生和比對
+- **條件判斷**: `if-else` 進行邏輯控制和獎項判定
+- **例外處理**: `try-catch` 處理檔案讀取和數字轉換的異常
+- **字串處理**: 檔案內容解析和結果顯示格式化
+
+#### 介面元件應用
+- **Label 陣列**: 用於顯示產生的號碼
+- **ListBox**: 顯示從檔案讀取的開獎號碼
+- **MessageBox**: 提供操作回饋和錯誤訊息
+- **OpenFileDialog**: 實現檔案選擇功能
+
+### 程式設計考核重點
+- 正確使用基本語法而非進階資料結構
+- 適當的變數命名和程式註解
+- 完整的錯誤處理機制
+- 清晰的程式邏輯流程
+- 良好的使用者互動體驗
+
+### 方法功能與名稱建議
+
+#### 🎯 建議的方法架構（基於範例程式）
+
+##### 事件處理方法（必須實作）
+```csharp
+// 產生號碼按鈕點擊事件
+private void generateButton_Click(object sender, EventArgs e)
+// 功能：產生5個不重複的隨機號碼(1-49)，顯示在標籤上，並與開獎號碼比對
+
+// 開獎號碼按鈕點擊事件  
+private void loadNumbersButton_Click(object sender, EventArgs e)
+// 功能：開啟檔案對話框，讀取開獎號碼檔案，驗證格式並顯示在ListBox
+
+// 離開按鈕點擊事件
+private void exitButton_Click(object sender, EventArgs e)
+// 功能：關閉應用程式
+```
+
+##### 核心功能方法（建議獨立出來）
+```csharp
+// === 號碼產生相關 ===
+private int[] GenerateUniqueNumbers(int count, int maxValue)
+// 功能：產生指定數量的不重複隨機號碼
+// 參數：count=號碼數量, maxValue=最大值(49)
+// 回傳：包含不重複號碼的陣列
+
+private bool IsNumberDuplicate(int[] numbers, int newNumber, int currentIndex)
+// 功能：檢查新號碼是否與已產生的號碼重複
+// 參數：numbers=已產生號碼陣列, newNumber=新號碼, currentIndex=目前索引
+// 回傳：true=重複, false=不重複
+
+private void DisplayNumbers(int[] numbers, Label[] labels)
+// 功能：將號碼陣列顯示在對應的標籤上
+// 參數：numbers=要顯示的號碼, labels=標籤陣列
+
+// === 檔案處理相關 ===
+private bool LoadWinningNumbers(string filePath)
+// 功能：從指定檔案路徑讀取開獎號碼
+// 參數：filePath=檔案完整路徑
+// 回傳：true=成功讀取, false=讀取失敗
+
+private bool IsValidNumber(int number)
+// 功能：驗證號碼是否在有效範圍內(1-49)
+// 參數：number=要驗證的號碼
+// 回傳：true=有效, false=無效
+
+private void ShowWinningNumbers(int[] numbers)
+// 功能：在ListBox中顯示開獎號碼
+// 參數：numbers=開獎號碼陣列
+
+// === 比對與結果相關 ===
+private void CompareWithWinningNumbers(int[] userNumbers)
+// 功能：比對使用者號碼與開獎號碼，顯示結果（已提供）
+// 參數：userNumbers=使用者產生的號碼陣列
+
+private int CountMatches(int[] userNumbers, int[] winningNumbers)
+// 功能：計算兩個號碼陣列中相符的數量
+// 參數：userNumbers=使用者號碼, winningNumbers=開獎號碼
+// 回傳：相符號碼的數量
+
+private string GetMatchedNumbersString(int[] userNumbers, int[] winningNumbers)
+// 功能：取得相符號碼的字串表示
+// 參數：userNumbers=使用者號碼, winningNumbers=開獎號碼
+// 回傳：相符號碼的字串，例如："5, 23, 41"
+
+private string GetPrizeLevel(int matchCount)
+// 功能：根據中獎數量決定獎項等級
+// 參數：matchCount=中獎號碼數量
+// 回傳：獎項字串，例如："🎉 頭獎！"
+```
+
+#### 💡 重要技術實作要點
+
+##### 不重複亂數產生算法
+```csharp
+// 使用do-while迴圈確保不重複
+for (int i = 0; i < SIZE; i++)
+{
+    int number;
+    bool isDuplicate;
+    
+    do {
+        isDuplicate = false;
+        number = rand.Next(1, 50);
+        
+        // 用for迴圈檢查重複
+        for (int j = 0; j < i; j++) {
+            if (lotteryNumbers[j] == number) {
+                isDuplicate = true;
+                break;
+            }
+        }
+    } while (isDuplicate);
+    
+    lotteryNumbers[i] = number;
+}
+```
+
+##### 檔案讀取與錯誤處理
+```csharp
+// 使用using語句確保資源釋放
+using (StreamReader reader = new StreamReader(filePath))
+{
+    // 逐行讀取並驗證
+    while ((line = reader.ReadLine()) != null && index < 5)
+    {
+        try {
+            int number = int.Parse(line.Trim());
+            // 範圍驗證和儲存
+        }
+        catch (FormatException) {
+            // 格式錯誤處理
+        }
+    }
+}
+```
+
+##### 雙重迴圈比對算法
+```csharp
+// 外迴圈：使用者號碼
+for (int i = 0; i < userNumbers.Length; i++)
+{
+    // 內迴圈：開獎號碼
+    for (int j = 0; j < winningNumbers.Length; j++)
+    {
+        if (userNumbers[i] == winningNumbers[j]) {
+            matchCount++;
+            // 記錄中獎號碼並跳出內迴圈
+            break;
+        }
+    }
+}
+```
+
+#### 🔧 方法設計原則
+- **單一責任**: 每個方法只負責一個明確功能
+- **參數清晰**: 使用有意義的參數名稱
+- **回傳值明確**: 清楚表達方法的輸出
+- **錯誤處理**: 適當使用try-catch處理例外
+- **資源管理**: 使用using語句管理檔案資源
+
+#### 📋 實作建議順序
+1. **建立方法架構**: 先寫出所有方法的空殼
+2. **實作號碼產生**: 完成不重複亂數演算法
+3. **實作檔案讀取**: 加入StreamReader和錯誤處理
+4. **實作比對邏輯**: 完成雙重迴圈比對算法
+5. **整合測試**: 確保所有功能正常運作
+6. **優化介面**: 改善使用者體驗
+
+### 建議開發順序
+建議學生先完成基本的介面設計，接著實作檔案讀取功能，再進行亂數產生與比對邏輯的開發，最後完善錯誤處理與使用者體驗。
+
+---
+**注意事項**: 本專案著重於基礎程式設計能力的考核，學生應使用基本語法實作功能，展現對陣列操作、迴圈控制、條件判斷等核心概念的理解。程式必須具備完整的功能性和良好的錯誤處理能力。良好的方法設計能讓程式更易讀、易維護，是重要的評分項目。

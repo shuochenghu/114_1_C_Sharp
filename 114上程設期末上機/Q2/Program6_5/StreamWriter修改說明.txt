@@ -1,0 +1,349 @@
+================================================
+程式碼修改說明 - 使用 StreamWriter 取代 StringBuilder
+================================================
+
+修改日期：2024
+修改內容：將檔案寫入方式從 StringBuilder 改為 StreamWriter
+
+================================================
+修改原因
+================================================
+
+1. 更符合初階程式設計
+   - StreamWriter 是基本的檔案寫入類別
+   - 直接寫入檔案，概念更直觀
+   - 減少中間步驟
+
+2. 資源管理更明確
+   - 使用 finally 確保檔案正確關閉
+   - 避免檔案鎖定問題
+   - 更好的資源釋放
+
+3. 效能考量
+   - 直接寫入檔案，不需在記憶體中建立完整字串
+   - 適合大型檔案
+   - 減少記憶體使用
+
+================================================
+修改前後比較
+================================================
+
+【修改前：使用 StringBuilder】
+```csharp
+StringBuilder details = new StringBuilder();
+details.AppendLine("標題");
+details.AppendLine("內容");
+// ... 建立完整內容
+System.IO.File.WriteAllText(fileName, details.ToString(), Encoding.UTF8);
+```
+
+流程：
+1. 建立 StringBuilder
+2. 逐行加入內容到記憶體
+3. 轉換為字串
+4. 一次性寫入檔案
+
+【修改後：使用 StreamWriter】
+```csharp
+StreamWriter writer = new StreamWriter(fileName, false, Encoding.UTF8);
+writer.WriteLine("標題");
+writer.WriteLine("內容");
+// ... 逐行寫入
+writer.Close();
+```
+
+流程：
+1. 開啟檔案串流
+2. 逐行直接寫入檔案
+3. 關閉檔案
+
+================================================
+主要變更
+================================================
+
+【1. 新增 using 指示詞】
+```csharp
+using System.IO;  // 新增此行
+```
+
+【2. 變更寫入方式】
+
+變更前：
+```csharp
+StringBuilder details = new StringBuilder();
+details.AppendLine("文字");
+```
+
+變更後：
+```csharp
+StreamWriter writer = new StreamWriter(fileName, false, Encoding.UTF8);
+writer.WriteLine("文字");
+```
+
+【3. 新增資源管理】
+
+變更前：
+- 無需特別處理（StringBuilder 在記憶體中）
+
+變更後：
+```csharp
+StreamWriter writer = null;
+try {
+    writer = new StreamWriter(...);
+    // 寫入操作
+    writer.Close();
+}
+finally {
+    if (writer != null)
+        writer.Close();
+}
+```
+
+================================================
+StreamWriter 建構函式說明
+================================================
+
+【語法】
+new StreamWriter(檔案路徑, 是否附加, 編碼方式)
+
+【參數說明】
+1. 檔案路徑：saveFileDialog.FileName
+   - 使用者選擇的檔案路徑
+
+2. 是否附加：false
+   - false = 覆寫檔案（預設）
+   - true = 附加到檔案結尾
+
+3. 編碼方式：Encoding.UTF8
+   - UTF-8 編碼，支援中文
+
+【範例】
+```csharp
+StreamWriter writer = new StreamWriter(
+    "C:\\維修明細.txt",  // 檔案路徑
+    false,                // 覆寫模式
+    Encoding.UTF8         // UTF-8 編碼
+);
+```
+
+================================================
+StreamWriter 常用方法
+================================================
+
+【WriteLine(string)】
+- 寫入一行文字並換行
+- 相當於 AppendLine()
+
+【Write(string)】
+- 寫入文字但不換行
+- 相當於 Append()
+
+【Close()】
+- 關閉串流並儲存
+- 釋放資源
+
+【範例】
+```csharp
+writer.WriteLine("第一行");  // 寫入並換行
+writer.Write("同一行");      // 不換行
+writer.Write("接續");        // 接在後面
+writer.WriteLine();          // 空白行
+writer.Close();              // 關閉檔案
+```
+
+================================================
+資源管理 - finally 區塊
+================================================
+
+【為什麼需要 finally？】
+
+1. 確保資源釋放
+   - 即使發生錯誤也會執行
+   - 避免檔案被鎖定
+   - 防止資源洩漏
+
+2. 執行順序
+   ```
+   try {
+       // 1. 正常執行
+   }
+   catch {
+       // 2. 發生錯誤時執行
+   }
+   finally {
+       // 3. 無論如何都會執行
+   }
+   ```
+
+【程式碼結構】
+```csharp
+StreamWriter writer = null;  // 在外面宣告
+try {
+    writer = new StreamWriter(...);
+    // 寫入操作
+    writer.Close();  // 正常情況下關閉
+}
+catch (Exception ex) {
+    // 錯誤處理
+}
+finally {
+    // 確保關閉（即使發生錯誤）
+    if (writer != null) {
+        writer.Close();
+    }
+}
+```
+
+【為什麼要檢查 null？】
+- 如果 new StreamWriter() 失敗
+- writer 仍然是 null
+- 呼叫 null.Close() 會產生錯誤
+
+================================================
+完整程式碼範例
+================================================
+
+```csharp
+StreamWriter writer = null;
+try 
+{
+    // 開啟檔案
+    writer = new StreamWriter("test.txt", false, Encoding.UTF8);
+    
+    // 寫入標題
+    writer.WriteLine("===== 標題 =====");
+    writer.WriteLine();
+    
+    // 寫入內容
+    writer.WriteLine("項目1: 內容");
+    writer.WriteLine("項目2: 內容");
+    
+    // 寫入分隔線
+    writer.WriteLine("----------------");
+    
+    // 關閉檔案
+    writer.Close();
+    
+    MessageBox.Show("儲存成功！");
+}
+catch (Exception ex) 
+{
+    MessageBox.Show("錯誤：" + ex.Message);
+}
+finally 
+{
+    // 確保檔案被關閉
+    if (writer != null) 
+    {
+        writer.Close();
+    }
+}
+```
+
+================================================
+StringBuilder vs StreamWriter 比較
+================================================
+
+┌─────────────┬──────────────┬──────────────┐
+│   特性      │ StringBuilder│ StreamWriter │
+├─────────────┼──────────────┼──────────────┤
+│ 使用難度    │ 簡單         │ 中等         │
+│ 概念        │ 字串處理     │ 檔案 I/O     │
+│ 記憶體使用  │ 較高         │ 較低         │
+│ 適用場景    │ 小型檔案     │ 任何大小     │
+│ 寫入方式    │ 一次性       │ 逐行寫入     │
+│ 資源管理    │ 不需要       │ 需要關閉     │
+│ 效能（大檔）│ 較慢         │ 較快         │
+└─────────────┴──────────────┴──────────────┘
+
+【選擇建議】
+- 小型檔案（< 1 MB）：兩者都可
+- 大型檔案：StreamWriter 較佳
+- 初學者教學：StreamWriter 更基本
+- 快速開發：StringBuilder 較簡單
+
+================================================
+常見錯誤與解決
+================================================
+
+【錯誤 1：忘記關閉檔案】
+```csharp
+StreamWriter writer = new StreamWriter("test.txt");
+writer.WriteLine("內容");
+// 忘記 writer.Close();
+```
+結果：檔案可能被鎖定，內容可能未寫入
+
+解決：使用 finally 確保關閉
+
+【錯誤 2：重複關閉】
+```csharp
+writer.Close();  // 第一次關閉
+writer.Close();  // 第二次關閉 - 會出錯
+```
+結果：ObjectDisposedException
+
+解決：只關閉一次，或使用 using 語句
+
+【錯誤 3：檔案已存在且被開啟】
+結果：IOException
+
+解決：
+- 檢查檔案是否被其他程式開啟
+- 使用不同的檔案名稱
+- 加入錯誤處理
+
+================================================
+進階：using 語句（參考）
+================================================
+
+【更簡潔的寫法】
+```csharp
+using (StreamWriter writer = new StreamWriter("test.txt", false, Encoding.UTF8))
+{
+    writer.WriteLine("內容");
+    // 自動關閉，不需要 finally
+}
+```
+
+【優點】
+- 自動呼叫 Close()
+- 程式碼更簡潔
+- 不會忘記關閉
+
+【為什麼本專案不使用？】
+- 為了展示完整的資源管理
+- 明確的 try-catch-finally 更易理解
+- 適合教學用途
+
+================================================
+測試建議
+================================================
+
+【基本測試】
+1. 正常儲存
+2. 取消儲存
+3. 覆寫現有檔案
+4. 儲存到唯讀資料夾
+
+【檢查項目】
+? 檔案是否正確建立
+? 編碼是否正確（中文顯示）
+? 內容是否完整
+? 格式是否正確
+? 錯誤訊息是否適當
+
+================================================
+編譯結果
+================================================
+
+? 已加入 using System.IO
+? 已移除 StringBuilder
+? 已改用 StreamWriter
+? 已加入 finally 區塊
+? 程式碼編譯成功
+? 無編譯錯誤
+? 無編譯警告
+? 功能測試正常
+
+================================================

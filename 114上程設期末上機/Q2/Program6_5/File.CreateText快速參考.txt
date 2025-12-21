@@ -1,0 +1,72 @@
+================================================
+File.CreateText() 快速參考
+================================================
+
+【基本用法】
+StreamWriter writer = File.CreateText("檔案路徑.txt");
+writer.WriteLine("內容");
+writer.Close();
+
+【語法】
+StreamWriter writer = File.CreateText(string path);
+
+【參數】
+- path: 要建立的檔案路徑
+
+【預設設定】
+? UTF-8 編碼（支援中文）
+? 覆寫模式（刪除舊內容）
+? 自動建立新檔案
+
+【完整範例】
+StreamWriter writer = null;
+try {
+    writer = File.CreateText("output.txt");
+    writer.WriteLine("第一行");
+    writer.WriteLine("第二行");
+    writer.Close();
+}
+finally {
+    if (writer != null)
+        writer.Close();
+}
+
+【三種建立檔案方式】
+┌─────────────┬──────────┬──────────┐
+│    方法     │   語法   │   用途   │
+├─────────────┼──────────┼──────────┤
+│CreateText() │ 最簡單   │ 建立新檔 │
+│AppendText() │ 簡單     │ 附加內容 │
+│StreamWriter │ 最靈活   │ 自訂設定 │
+└─────────────┴──────────┴──────────┘
+
+【對比】
+// File.CreateText (簡潔)
+writer = File.CreateText("file.txt");
+
+// new StreamWriter (完整)
+writer = new StreamWriter("file.txt", false, Encoding.UTF8);
+
+// 結果完全相同！
+
+【何時使用 File.CreateText()】
+? 需要建立新檔案
+? UTF-8 編碼即可
+? 覆寫模式即可
+? 想要簡潔語法
+
+【何時使用 new StreamWriter()】
+? 需要附加內容 (append = true)
+? 需要特殊編碼 (非 UTF-8)
+? 需要完整控制
+
+【重要提醒】
+? 使用後必須 Close()
+? 使用 finally 確保關閉
+? 會覆寫現有檔案
+? UTF-8 是固定的
+
+【需要的 using】
+using System.IO;
+
+================================================

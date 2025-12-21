@@ -1,0 +1,255 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Program6_5
+{
+    /// <summary>
+    /// 汽車維修服務主表單
+    /// </summary>
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        
+        // 定義變數：機油、潤滑、水箱、變速箱、檢驗、更換、輪胎、
+        // 零件、工時、稅金、總計
+        double oil, lube, radiator, transmission, inspection, replace, tire, 
+               parts, labor, tax, total;
+
+        /// <summary>
+        /// 計算總額按鈕事件
+        /// </summary>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // 顯示服務和工時總額（工時 + 機油潤滑 + 清洗 + 其他）
+            label7.Text = (labor + OilLubeCharges() + FlushCharges() + MiscCharges()).ToString("c");
+
+            // 顯示零件費用
+            if (textBox1.Text == "")
+            {
+                label8.Text = "$0";
+            }
+            else
+            {
+                label8.Text = "$"+textBox1.Text.ToString();
+            }
+
+            // 顯示稅金
+            label9.Text = (TaxCharges()).ToString("c");
+            // 顯示總費用
+            label10.Text = (TotalCharges()).ToString("c");
+        }
+
+        /// <summary>
+        /// 計算機油和潤滑費用
+        /// </summary>
+        /// <returns>機油和潤滑的總費用</returns>
+        private double OilLubeCharges()
+        {
+            // 如果選擇了更換機油，設定費用為 $26
+            if (checkBox1.Checked)
+            {
+                oil = 26;
+            }
+            else
+            {
+                oil = 0;
+            }
+            // 如果選擇了潤滑保養，設定費用為 $18
+            if (checkBox2.Checked)
+            {
+                lube = 18;
+            }
+            else
+            {
+                lube = 0;
+            }
+
+            return (oil + lube);
+        }
+
+        /// <summary>
+        /// 計算清洗服務費用
+        /// </summary>
+        /// <returns>水箱和變速箱清洗的總費用</returns>
+        private double FlushCharges()
+        {
+            // 如果選擇了水箱清洗，設定費用為 $30
+            if (checkBox3.Checked)
+            {
+                radiator = 30;
+            }
+            else
+            {
+                radiator = 0;
+            }
+            // 如果選擇了變速箱清洗，設定費用為 $80
+            if (checkBox4.Checked)
+            {
+                transmission = 80;
+            }
+            else
+            {
+                transmission = 0;
+            }
+
+            return (radiator + transmission);
+        }
+
+        /// <summary>
+        /// 計算其他服務費用
+        /// </summary>
+        /// <returns>檢驗、更換消音器和輪胎換位的總費用</returns>
+        private double MiscCharges()
+        {
+            // 如果選擇了檢驗，設定費用為 $15
+            if (checkBox5.Checked)
+            {
+                inspection = 15;
+            }
+            else
+            {
+                inspection = 0;
+            }
+            // 如果選擇了更換消音器，設定費用為 $100
+            if (checkBox6.Checked)
+            {
+                replace = 100;
+            }
+            else
+            {
+                replace = 0;
+            }
+            // 如果選擇了輪胎換位，設定費用為 $20
+            if (checkBox7.Checked)
+            {
+                tire = 20;
+            }
+            else
+            {
+                tire = 0;
+            }
+            return (inspection + replace + tire);
+        }
+
+        /// <summary>
+        /// 計算零件和工時費用
+        /// </summary>
+        /// <returns>零件和工時的總費用</returns>
+        private double OtherCharges()
+        {
+            // 嘗試從文字框解析零件費用，如果失敗則設為 0
+            if (!double.TryParse(textBox1.Text, out parts))
+            {
+                parts = 0;
+            }
+            // 嘗試從文字框解析工時費用，如果失敗則設為 0
+            if (!double.TryParse(textBox2.Text, out labor))
+            {
+                labor = 0;
+            }
+            return (parts + labor);
+        }
+        /// <summary>
+        /// 計算稅金（僅對零件收取 6% 稅）
+        /// </summary>
+        /// <returns>稅金</returns>
+        private double TaxCharges()
+        {
+            // 如果零件費用解析成功，計算 6% 的稅金
+            if (double.TryParse(textBox1.Text, out parts))
+            {
+                tax = parts * 0.06;
+            }
+            else
+            {
+                tax = 0;
+            }
+            return tax;
+        }
+
+        /// <summary>
+        /// 計算所有費用的總和
+        /// </summary>
+        /// <returns>總費用</returns>
+        private double TotalCharges()
+        {
+            // 總費用 = 機油潤滑 + 清洗 + 其他服務 + 零件工時 + 稅金
+            total = OilLubeCharges() + FlushCharges() + MiscCharges() + OtherCharges() + TaxCharges();
+            return total;
+        }
+
+        /// <summary>
+        /// 清除按鈕事件，重設所有選項和輸入
+        /// </summary>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // 清除所有選擇框和文字框
+            ClearOilLube();
+            ClearFlushes();
+            ClearMisc();
+            ClearOther();
+            ClearFees();
+        }
+
+        /// <summary>
+        /// 清除機油和潤滑選項
+        /// </summary>
+        private void ClearOilLube()
+        {
+            checkBox1.Checked = false;
+            checkBox2.Checked = false;
+        }
+        /// <summary>
+        /// 清除清洗服務選項
+        /// </summary>
+        private void ClearFlushes()
+        {
+            checkBox3.Checked = false;
+            checkBox4.Checked = false;
+        }
+        /// <summary>
+        /// 清除其他服務選項
+        /// </summary>
+        private void ClearMisc()
+        {
+            checkBox5.Checked = false;
+            checkBox6.Checked = false;
+            checkBox7.Checked = false;
+        }
+        /// <summary>
+        /// 清除零件和工時輸入
+        /// </summary>
+        private void ClearOther()
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+        }
+        /// <summary>
+        /// 清除費用顯示
+        /// </summary>
+        private void ClearFees()
+        {
+            label7.Text = "";
+            label8.Text = "";
+            label9.Text = "";
+            label10.Text = "";
+        }
+
+        /// <summary>
+        /// 離開按鈕事件，關閉表單
+        /// </summary>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

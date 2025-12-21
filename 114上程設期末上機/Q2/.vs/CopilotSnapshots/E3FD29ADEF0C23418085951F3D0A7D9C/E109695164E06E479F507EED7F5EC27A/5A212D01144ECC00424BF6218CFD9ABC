@@ -1,0 +1,263 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Program6_5
+{
+    /// <summary>
+    /// 汽車維修服務主表單
+    /// </summary>
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        
+        // 定義變數：機油、潤滑、水箱、變速箱、檢驗、更換、輪胎、
+        // 零件、工時、稅金、總計
+        double oil, lube, radiator, transmission, inspection, replace, tire, 
+               parts, labor, tax, total;
+
+        /// <summary>
+        /// 格式化金額為台幣格式（NT$ 加千位分隔符號）
+        /// </summary>
+        private string FormatTWD(double amount)
+        {
+            return "NT$" + amount.ToString("N0");
+        }
+
+        /// <summary>
+        /// 計算總額按鈕事件
+        /// </summary>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // 顯示服務和工時總額（工時 + 機油潤滑 + 清洗 + 其他）
+            serviceLaborValueLabel.Text = FormatTWD(labor + OilLubeCharges() + FlushCharges() + MiscCharges());
+
+            // 顯示零件費用
+            if (partsTextBox.Text == "")
+            {
+                partsValueLabel.Text = "NT$0";
+            }
+            else
+            {
+                partsValueLabel.Text = "NT$" + double.Parse(partsTextBox.Text).ToString("N0");
+            }
+
+            // 顯示稅金
+            taxValueLabel.Text = FormatTWD(TaxCharges());
+            // 顯示總費用
+            totalFeesValueLabel.Text = FormatTWD(TotalCharges());
+        }
+
+        /// <summary>
+        /// 計算機油和潤滑費用
+        /// </summary>
+        /// <returns>機油和潤滑的總費用</returns>
+        private double OilLubeCharges()
+        {
+            // 如果選擇了更換機油，設定費用為 NT$780
+            if (oilChangeCheckBox.Checked)
+            {
+                oil = 780;
+            }
+            else
+            {
+                oil = 0;
+            }
+            // 如果選擇了潤滑保養，設定費用為 NT$540
+            if (lubeCheckBox.Checked)
+            {
+                lube = 540;
+            }
+            else
+            {
+                lube = 0;
+            }
+
+            return (oil + lube);
+        }
+
+        /// <summary>
+        /// 計算清洗服務費用
+        /// </summary>
+        /// <returns>水箱和變速箱清洗的總費用</returns>
+        private double FlushCharges()
+        {
+            // 如果選擇了水箱清洗，設定費用為 NT$900
+            if (radiatorFlushCheckBox.Checked)
+            {
+                radiator = 900;
+            }
+            else
+            {
+                radiator = 0;
+            }
+            // 如果選擇了變速箱清洗，設定費用為 NT$2400
+            if (transmissionFlushCheckBox.Checked)
+            {
+                transmission = 2400;
+            }
+            else
+            {
+                transmission = 0;
+            }
+
+            return (radiator + transmission);
+        }
+
+        /// <summary>
+        /// 計算其他服務費用
+        /// </summary>
+        /// <returns>檢驗、更換消音器和輪胎換位的總費用</returns>
+        private double MiscCharges()
+        {
+            // 如果選擇了檢驗，設定費用為 NT$450
+            if (inspectionCheckBox.Checked)
+            {
+                inspection = 450;
+            }
+            else
+            {
+                inspection = 0;
+            }
+            // 如果選擇了更換消音器，設定費用為 NT$3000
+            if (mufflerCheckBox.Checked)
+            {
+                replace = 3000;
+            }
+            else
+            {
+                replace = 0;
+            }
+            // 如果選擇了輪胎換位，設定費用為 NT$600
+            if (tireRotationCheckBox.Checked)
+            {
+                tire = 600;
+            }
+            else
+            {
+                tire = 0;
+            }
+            return (inspection + replace + tire);
+        }
+
+        /// <summary>
+        /// 計算零件和工時費用
+        /// </summary>
+        /// <returns>零件和工時的總費用</returns>
+        private double OtherCharges()
+        {
+            // 嘗試從文字框解析零件費用，如果失敗則設為 0
+            if (!double.TryParse(partsTextBox.Text, out parts))
+            {
+                parts = 0;
+            }
+            // 嘗試從文字框解析工時費用，如果失敗則設為 0
+            if (!double.TryParse(laborTextBox.Text, out labor))
+            {
+                labor = 0;
+            }
+            return (parts + labor);
+        }
+        /// <summary>
+        /// 計算稅金（僅對零件收取 6% 稅）
+        /// </summary>
+        /// <returns>稅金</returns>
+        private double TaxCharges()
+        {
+            // 如果零件費用解析成功，計算 6% 的稅金
+            if (double.TryParse(partsTextBox.Text, out parts))
+            {
+                tax = parts * 0.06;
+            }
+            else
+            {
+                tax = 0;
+            }
+            return tax;
+        }
+
+        /// <summary>
+        /// 計算所有費用的總和
+        /// </summary>
+        /// <returns>總費用</returns>
+        private double TotalCharges()
+        {
+            // 總費用 = 機油潤滑 + 清洗 + 其他服務 + 零件工時 + 稅金
+            total = OilLubeCharges() + FlushCharges() + MiscCharges() + OtherCharges() + TaxCharges();
+            return total;
+        }
+
+        /// <summary>
+        /// 清除按鈕事件，重設所有選項和輸入
+        /// </summary>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // 清除所有選擇框和文字框
+            ClearOilLube();
+            ClearFlushes();
+            ClearMisc();
+            ClearOther();
+            ClearFees();
+        }
+
+        /// <summary>
+        /// 清除機油和潤滑選項
+        /// </summary>
+        private void ClearOilLube()
+        {
+            oilChangeCheckBox.Checked = false;
+            lubeCheckBox.Checked = false;
+        }
+        /// <summary>
+        /// 清除清洗服務選項
+        /// </summary>
+        private void ClearFlushes()
+        {
+            radiatorFlushCheckBox.Checked = false;
+            transmissionFlushCheckBox.Checked = false;
+        }
+        /// <summary>
+        /// 清除其他服務選項
+        /// </summary>
+        private void ClearMisc()
+        {
+            inspectionCheckBox.Checked = false;
+            mufflerCheckBox.Checked = false;
+            tireRotationCheckBox.Checked = false;
+        }
+        /// <summary>
+        /// 清除零件和工時輸入
+        /// </summary>
+        private void ClearOther()
+        {
+            partsTextBox.Text = "";
+            laborTextBox.Text = "";
+        }
+        /// <summary>
+        /// 清除費用顯示
+        /// </summary>
+        private void ClearFees()
+        {
+            serviceLaborValueLabel.Text = "";
+            partsValueLabel.Text = "";
+            taxValueLabel.Text = "";
+            totalFeesValueLabel.Text = "";
+        }
+
+        /// <summary>
+        /// 離開按鈕事件，關閉表單
+        /// </summary>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

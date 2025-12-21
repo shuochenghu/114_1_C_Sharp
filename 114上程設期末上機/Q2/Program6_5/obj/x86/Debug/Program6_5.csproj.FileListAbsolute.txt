@@ -1,0 +1,54 @@
+C:\Users\akira\AppData\Local\Temporary Projects\Program6_5\bin\Debug\Program6_5.exe
+C:\Users\akira\AppData\Local\Temporary Projects\Program6_5\bin\Debug\Program6_5.pdb
+C:\Users\akira\AppData\Local\Temporary Projects\Program6_5\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\akira\AppData\Local\Temporary Projects\Program6_5\obj\x86\Debug\Program6_5.Form1.resources
+C:\Users\akira\AppData\Local\Temporary Projects\Program6_5\obj\x86\Debug\Program6_5.Properties.Resources.resources
+C:\Users\akira\AppData\Local\Temporary Projects\Program6_5\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\akira\AppData\Local\Temporary Projects\Program6_5\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\akira\AppData\Local\Temporary Projects\Program6_5\obj\x86\Debug\Program6_5.exe
+C:\Users\akira\AppData\Local\Temporary Projects\Program6_5\obj\x86\Debug\Program6_5.pdb
+C:\csharp\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.exe
+C:\csharp\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.pdb
+C:\csharp\chapter06\Program6_5\Program6_5\bin\Debug\Program6_5.exe
+C:\csharp\chapter06\Program6_5\Program6_5\bin\Debug\Program6_5.pdb
+C:\csharp\chapter06\Program6_5\Program6_5\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\csharp\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.Form1.resources
+C:\csharp\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.Properties.Resources.resources
+C:\csharp\chapter06\Program6_5\Program6_5\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\csharp\chapter06\Program6_5\Program6_5\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Chris\Desktop\C#\Solutions Manual\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.exe
+C:\Users\Chris\Desktop\C#\Solutions Manual\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.pdb
+C:\Users\Chris\Desktop\C#\Solutions Manual\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\bin\Debug\Program6_5.exe
+C:\Users\Chris\Desktop\C#\Solutions Manual\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\bin\Debug\Program6_5.pdb
+C:\Users\Chris\Desktop\C#\Solutions Manual\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.csprojResolveAssemblyReference.cache
+C:\Users\Chris\Desktop\C#\Solutions Manual\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.Form1.resources
+C:\Users\Chris\Desktop\C#\Solutions Manual\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.Properties.Resources.resources
+C:\Users\Chris\Desktop\C#\Solutions Manual\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.csproj.GenerateResource.Cache
+C:\Users\Tony\Documents\Books\C#\4th Edition\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.exe
+C:\Users\Tony\Documents\Books\C#\4th Edition\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.pdb
+C:\Users\Tony\Documents\Books\C#\4th Edition\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\bin\Debug\Program6_5.exe
+C:\Users\Tony\Documents\Books\C#\4th Edition\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\bin\Debug\Program6_5.pdb
+C:\Users\Tony\Documents\Books\C#\4th Edition\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.csprojResolveAssemblyReference.cache
+C:\Users\Tony\Documents\Books\C#\4th Edition\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.Form1.resources
+C:\Users\Tony\Documents\Books\C#\4th Edition\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.Properties.Resources.resources
+C:\Users\Tony\Documents\Books\C#\4th Edition\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.csproj.GenerateResource.Cache
+F:\LectureNotes\Programming\Visual C#\Gaddis-Starting out with Visual C#, Global Edition, 4E\ISM\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\bin\Debug\Program6_5.exe
+F:\LectureNotes\Programming\Visual C#\Gaddis-Starting out with Visual C#, Global Edition, 4E\ISM\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\bin\Debug\Program6_5.pdb
+F:\LectureNotes\Programming\Visual C#\Gaddis-Starting out with Visual C#, Global Edition, 4E\ISM\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.csprojAssemblyReference.cache
+F:\LectureNotes\Programming\Visual C#\Gaddis-Starting out with Visual C#, Global Edition, 4E\ISM\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.Form1.resources
+F:\LectureNotes\Programming\Visual C#\Gaddis-Starting out with Visual C#, Global Edition, 4E\ISM\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.Properties.Resources.resources
+F:\LectureNotes\Programming\Visual C#\Gaddis-Starting out with Visual C#, Global Edition, 4E\ISM\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.csproj.GenerateResource.cache
+F:\LectureNotes\Programming\Visual C#\Gaddis-Starting out with Visual C#, Global Edition, 4E\ISM\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.csproj.CoreCompileInputs.cache
+F:\LectureNotes\Programming\Visual C#\Gaddis-Starting out with Visual C#, Global Edition, 4E\ISM\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.exe
+F:\LectureNotes\Programming\Visual C#\Gaddis-Starting out with Visual C#, Global Edition, 4E\ISM\Solutions to Programming Problems\chapter06\Program6_5\Program6_5\obj\x86\Debug\Program6_5.pdb
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\bin\Debug\Program6_5.exe.config
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\bin\Debug\Program6_5.exe
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\bin\Debug\Program6_5.pdb
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\obj\x86\Debug\Program6_5.csproj.AssemblyReference.cache
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\obj\x86\Debug\Program6_5.Form1.resources
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\obj\x86\Debug\Program6_5.Properties.Resources.resources
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\obj\x86\Debug\Program6_5.csproj.GenerateResource.cache
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\obj\x86\Debug\Program6_5.csproj.CoreCompileInputs.cache
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\obj\x86\Debug\Program6_5.exe
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\obj\x86\Debug\Program6_5.pdb
+C:\Users\Chuckhu\temp\Program6_5\Program6_5\obj\x86\Debug\Program6_5.exe.config

@@ -1,0 +1,159 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Program6_10
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        Random rand = new Random();
+        string compChoice, myChoice, winner;
+        int playerWins = 0;  // 玩家勝場數
+        int computerWins = 0;  // 電腦勝場數
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // 初始化時清空圖片和結果
+            pictureBox1.Image = null;
+            pictureBox2.Image = null;
+            label1.Text = "";
+        }
+
+        // 取得電腦的選擇
+        private void getCompChoice()
+        {
+            switch (rand.Next(3) + 1)
+            {
+                case 1: compChoice = "石頭"; break;
+                case 2: compChoice = "布"; break;
+                case 3: compChoice = "剪刀"; break;
+            }
+        }
+
+        // 顯示電腦的圖片
+        private void showComputerImage()
+        {
+            switch (compChoice)
+            {
+                case "石頭":
+                    pictureBox1.Image = Properties.Resources.stone_computer;
+                    break;
+                case "布":
+                    pictureBox1.Image = Properties.Resources.paper_computer;
+                    break;
+                case "剪刀":
+                    pictureBox1.Image = Properties.Resources.scissor_computer;
+                    break;
+            }
+        }
+
+        // 顯示玩家的圖片
+        private void showPlayerImage()
+        {
+            switch (myChoice)
+            {
+                case "石頭":
+                    pictureBox2.Image = Properties.Resources.stone_player;
+                    break;
+                case "布":
+                    pictureBox2.Image = Properties.Resources.paper_player;
+                    break;
+                case "剪刀":
+                    pictureBox2.Image = Properties.Resources.scissor_player;
+                    break;
+            }
+        }
+
+        // 顯示獲勝者
+        private void showWinner()
+        {
+            if (myChoice == "石頭" && compChoice == "剪刀")
+            {
+                winner = "玩家贏";
+            }
+            else if (myChoice == "剪刀" && compChoice == "石頭")
+            {
+                winner = "電腦贏";
+            }
+            else if (myChoice == "剪刀" && compChoice == "布")
+            {
+                winner = "玩家贏";
+            }
+            else if (myChoice == "布" && compChoice == "剪刀")
+            {
+                winner = "電腦贏";
+            }
+            else if (myChoice == "布" && compChoice == "石頭")
+            {
+                winner = "玩家贏";
+            }
+            else if (myChoice == "石頭" && compChoice == "布")
+            {
+                winner = "電腦贏";
+            }
+            else
+            {
+                winner = "平手";
+            }
+
+            // 只顯示輸贏結果
+            label1.Text = winner;
+        }
+
+        // 玩家選擇石頭
+        private void button1_Click(object sender, EventArgs e)
+        {
+            myChoice = "石頭";
+            getCompChoice();
+            showPlayerImage();
+            showComputerImage();
+            showWinner();
+        }
+
+        // 玩家選擇布
+        private void button2_Click(object sender, EventArgs e)
+        {
+            myChoice = "布";
+            getCompChoice();
+            showPlayerImage();
+            showComputerImage();
+            showWinner();
+        }
+
+        // 玩家選擇剪刀
+        private void button3_Click(object sender, EventArgs e)
+        {
+            myChoice = "剪刀";
+            getCompChoice();
+            showPlayerImage();
+            showComputerImage();
+            showWinner();
+        }
+
+        // 重新開始遊戲
+        private void button4_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = null;
+            pictureBox2.Image = null;
+            label1.Text = "";
+        }
+
+        // 結束遊戲
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+    }
+}

@@ -1,0 +1,396 @@
+================================================
+事件處理方法重命名說明
+================================================
+
+重命名日期：2024
+重命名內容：將按鈕事件處理方法改為有意義的名稱
+
+================================================
+重命名原因
+================================================
+
+1. 提高程式碼可讀性
+   - 方法名稱應反映其功能
+   - button1_Click 無法表達實際用途
+   - calculateButton_Click 清楚表達是計算按鈕
+
+2. 符合命名慣例
+   - 事件處理方法應使用 控件名稱_事件名稱 格式
+   - 與控件的 Name 屬性保持一致
+   - 易於理解和維護
+
+3. 便於程式碼維護
+   - 新開發者可立即理解方法用途
+   - 減少閱讀註解的需要
+   - 程式碼自我說明
+
+================================================
+重命名清單
+================================================
+
+【按鈕 1：計算總額按鈕】
+控件名稱：calculateButton
+原方法名：button1_Click
+新方法名：calculateButton_Click
+功能說明：計算所有維修項目的總費用並顯示
+
+【按鈕 2：清除按鈕】
+控件名稱：clearButton
+原方法名：button2_Click
+新方法名：clearButton_Click
+功能說明：清除所有輸入和選項，重設表單
+
+【按鈕 3：離開按鈕】
+控件名稱：exitButton
+原方法名：button3_Click
+新方法名：exitButton_Click
+功能說明：詢問是否儲存並關閉應用程式
+
+================================================
+詳細對照表
+================================================
+
+┌─────────────┬──────────────┬────────────────────┐
+│  控件名稱   │  原方法名稱  │   新方法名稱       │
+├─────────────┼──────────────┼────────────────────┤
+│calculateButton│button1_Click │calculateButton_Click│
+│clearButton   │button2_Click │clearButton_Click   │
+│exitButton    │button3_Click │exitButton_Click    │
+└─────────────┴──────────────┴────────────────────┘
+
+================================================
+修改的檔案
+================================================
+
+【Form1.cs】
+- 修改 3 個事件處理方法定義
+- 保持方法內容不變
+- 只更改方法名稱
+
+【Form1.Designer.cs】
+- 修改 3 個事件訂閱
+- 確保事件正確綁定到新方法名稱
+
+================================================
+修改前後對比
+================================================
+
+【計算總額按鈕】
+
+修改前：
+```csharp
+// Form1.cs
+private void button1_Click(object sender, EventArgs e)
+{
+    // 計算總額邏輯
+}
+
+// Form1.Designer.cs
+this.calculateButton.Click += new System.EventHandler(this.button1_Click);
+```
+
+修改後：
+```csharp
+// Form1.cs
+private void calculateButton_Click(object sender, EventArgs e)
+{
+    // 計算總額邏輯
+}
+
+// Form1.Designer.cs
+this.calculateButton.Click += new System.EventHandler(this.calculateButton_Click);
+```
+
+優點：
+? 方法名稱與控件名稱一致
+? 清楚表達是計算按鈕的點擊事件
+? 容易理解方法用途
+
+【清除按鈕】
+
+修改前：
+```csharp
+// Form1.cs
+private void button2_Click(object sender, EventArgs e)
+{
+    // 清除邏輯
+}
+
+// Form1.Designer.cs
+this.clearButton.Click += new System.EventHandler(this.button2_Click);
+```
+
+修改後：
+```csharp
+// Form1.cs
+private void clearButton_Click(object sender, EventArgs e)
+{
+    // 清除邏輯
+}
+
+// Form1.Designer.cs
+this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+```
+
+優點：
+? 立即知道是清除功能
+? 與按鈕文字「清除」對應
+? 方法名稱自我說明
+
+【離開按鈕】
+
+修改前：
+```csharp
+// Form1.cs
+private void button3_Click(object sender, EventArgs e)
+{
+    // 離開邏輯
+}
+
+// Form1.Designer.cs
+this.exitButton.Click += new System.EventHandler(this.button3_Click);
+```
+
+修改後：
+```csharp
+// Form1.cs
+private void exitButton_Click(object sender, EventArgs e)
+{
+    // 離開邏輯
+}
+
+// Form1.Designer.cs
+this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+```
+
+優點：
+? 明確表示是離開功能
+? 與應用程式關閉相關
+? 容易辨識關鍵方法
+
+================================================
+命名慣例說明
+================================================
+
+【Windows Forms 事件處理方法命名規則】
+
+格式：控件名稱_事件名稱
+
+範例：
+- calculateButton_Click    // 按鈕點擊
+- nameTextBox_TextChanged  // 文字框內容改變
+- listBox_SelectedIndexChanged  // 列表選擇改變
+- timer_Tick              // 計時器觸發
+
+【好的命名範例】
+? saveButton_Click        // 儲存按鈕
+? loadButton_Click        // 載入按鈕
+? searchTextBox_TextChanged  // 搜尋文字框
+? resultsListBox_SelectedIndexChanged  // 結果列表
+
+【不好的命名範例】
+? button1_Click           // 無意義的編號
+? button2_Click           // 無法理解功能
+? Click1                  // 過於簡化
+? HandleClick            // 過於通用
+
+================================================
+完整事件處理方法列表
+================================================
+
+【Form1.cs 中所有事件處理方法】
+
+1. calculateButton_Click
+   - 觸發控件：calculateButton
+   - 事件類型：Click
+   - 功能：計算並顯示所有費用
+
+2. clearButton_Click
+   - 觸發控件：clearButton
+   - 事件類型：Click
+   - 功能：清除所有輸入和選項
+
+3. exitButton_Click
+   - 觸發控件：exitButton
+   - 事件類型：Click
+   - 功能：詢問儲存並關閉應用程式
+
+================================================
+命名一致性檢查
+================================================
+
+【控件名稱 vs 方法名稱】
+
+? calculateButton → calculateButton_Click
+? clearButton     → clearButton_Click
+? exitButton      → exitButton_Click
+
+所有名稱完全一致！
+
+【按鈕文字 vs 方法名稱】
+
+? "計算總額" → calculateButton_Click
+? "清除"     → clearButton_Click
+? "離開"     → exitButton_Click
+
+名稱與功能完全對應！
+
+================================================
+重命名步驟回顧
+================================================
+
+【步驟 1：修改 Form1.cs】
+- 將 button1_Click 改為 calculateButton_Click
+- 將 button2_Click 改為 clearButton_Click
+- 將 button3_Click 改為 exitButton_Click
+
+【步驟 2：修改 Form1.Designer.cs】
+- 更新 calculateButton 的事件訂閱
+- 更新 clearButton 的事件訂閱
+- 更新 exitButton 的事件訂閱
+
+【步驟 3：驗證】
+- 編譯程式碼
+- 確認無錯誤
+- 測試功能正常
+
+================================================
+其他控件的命名
+================================================
+
+【目前專案中已正確命名的控件】
+
+? oilChangeCheckBox      // 更換機油核取框
+? lubeCheckBox           // 潤滑保養核取框
+? radiatorFlushCheckBox  // 水箱清洗核取框
+? transmissionFlushCheckBox  // 變速箱清洗核取框
+? inspectionCheckBox     // 檢驗核取框
+? mufflerCheckBox        // 更換消音器核取框
+? tireRotationCheckBox   // 輪胎換位核取框
+? partsTextBox           // 零件費用文字框
+? laborTextBox           // 工時數文字框
+? serviceLaborValueLabel // 服務與工資金額標籤
+? partsValueLabel        // 零件費用金額標籤
+? taxValueLabel          // 稅金金額標籤
+? totalFeesValueLabel    // 總費用金額標籤
+
+所有控件都已使用有意義的名稱！
+
+================================================
+程式碼可讀性改善
+================================================
+
+【改善前】
+```csharp
+private void button1_Click(...)  // 這是做什麼的？
+private void button2_Click(...)  // 需要查看程式碼才知道
+private void button3_Click(...)  // 編號沒有意義
+```
+
+【改善後】
+```csharp
+private void calculateButton_Click(...)  // 計算按鈕
+private void clearButton_Click(...)      // 清除按鈕
+private void exitButton_Click(...)       // 離開按鈕
+```
+
+優點：
+? 一眼就能理解方法用途
+? 不需要閱讀註解
+? 容易搜尋和定位
+? 減少認知負擔
+
+================================================
+最佳實踐建議
+================================================
+
+【1. 控件命名】
+- 使用描述性名稱
+- 包含控件類型後綴
+- 使用駝峰命名法
+
+範例：
+- submitButton (提交按鈕)
+- userNameTextBox (使用者名稱文字框)
+- resultsDataGridView (結果資料表格)
+
+【2. 事件處理方法命名】
+- 格式：控件名稱_事件名稱
+- 與控件名稱保持一致
+- 清楚表達觸發條件
+
+範例：
+- submitButton_Click
+- userNameTextBox_TextChanged
+- resultsDataGridView_CellClick
+
+【3. 避免使用】
+- 預設名稱（button1, textBox1）
+- 無意義的編號
+- 過於簡化的名稱
+
+【4. 重構時機】
+- 建立新控件時立即命名
+- 程式碼審查時檢查
+- 功能變更時更新
+
+================================================
+維護建議
+================================================
+
+1. 新增控件時
+   - 立即設定有意義的 Name 屬性
+   - 事件處理方法會自動使用正確名稱
+
+2. 修改控件名稱時
+   - 同時更新事件處理方法名稱
+   - 確保名稱一致性
+
+3. 程式碼審查時
+   - 檢查命名是否清楚
+   - 確認名稱與功能對應
+   - 統一命名風格
+
+4. 文件記錄
+   - 記錄重要控件的用途
+   - 說明事件處理流程
+   - 維護命名慣例文件
+
+================================================
+編譯與測試結果
+================================================
+
+? Form1.cs 修改成功
+? Form1.Designer.cs 修改成功
+? 所有事件正確綁定
+? 程式碼編譯成功
+? 無編譯錯誤
+? 無編譯警告
+? 功能測試正常
+? 事件觸發正確
+
+================================================
+總結
+================================================
+
+本次重命名完成以下改進：
+
+1. 提高可讀性
+   - 方法名稱清楚表達功能
+   - 減少理解程式碼的時間
+
+2. 符合慣例
+   - 遵循 Windows Forms 命名規則
+   - 與控件名稱保持一致
+
+3. 易於維護
+   - 新開發者容易理解
+   - 減少註解依賴
+
+4. 專業標準
+   - 符合業界最佳實踐
+   - 提升程式碼品質
+
+所有事件處理方法現在都使用有意義、易於理解的名稱！
+
+================================================

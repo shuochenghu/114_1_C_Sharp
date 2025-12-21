@@ -1,0 +1,259 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+
+namespace Lottery_Numbers
+{
+    /// <summary>
+    /// 樂透號碼產生器主表單類別
+    /// </summary>
+    public partial class Form1 : Form
+    {
+        // 儲存開獎號碼的陣列
+        private int[] winningNumbers = new int[5];
+        
+        /// <summary>
+        /// 建構函式：初始化表單元件
+        /// </summary>
+        public Form1()
+        {
+            // 初始化表單中的所有元件
+            InitializeComponent();
+        }
+
+        /// <summary>
+        /// 產生號碼按鈕的點擊事件處理程序
+        /// 當使用者點擊「產生號碼」按鈕時執行
+        /// </summary>
+        /// <param name="sender">事件發送者物件</param>
+        /// <param name="e">事件參數</param>
+        private void generateButton_Click(object sender, EventArgs e)
+        {
+            // 此處將實作產生樂透號碼的邏輯
+            const int SIZE = 5; // 樂透號碼數量
+            int[] lotteryNumbers = new int[SIZE];
+            /***************************
+             * 在此產生樂透號碼並顯示在對應的標籤上
+             ***************************/
+            Label[] labels = { firstLabel, secondLabel, thirdLabel, fourthLabel, fifthLabel };
+            
+            Random rand = new Random();
+
+            // 產生5個不重複的亂數(1~49)
+            for (int i = 0; i < SIZE; i++)
+            {
+                int number;
+                bool isDuplicate;
+                
+                do
+                {
+                    isDuplicate = false;
+                    number = rand.Next(1, 50); // 產生1到49之間的隨機數字
+                    
+                    // 檢查是否與之前產生的號碼重複
+                    for (int j = 0; j < i; j++)
+                    {
+                        if (lotteryNumbers[j] == number)
+                        {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                } while (isDuplicate); // 如果重複則重新產生
+                
+                lotteryNumbers[i] = number;
+            }
+
+            // 顯示產生的號碼在標籤上
+            for (int i = 0; i < SIZE; i++)
+            {
+                labels[i].Text = lotteryNumbers[i].ToString();
+            }
+
+            // 與開獎號碼進行比對
+            CompareWithWinningNumbers(lotteryNumbers);
+        }
+
+        /// <summary>
+        /// 比對產生的號碼與開獎號碼
+        /// </summary>
+        /// <param name="userNumbers">使用者產生的號碼</param>
+        private void CompareWithWinningNumbers(int[] userNumbers)
+        {
+            if (winningNumbers[0] == 0)
+            {
+                resultLabel.Text = "請先載入開獎號碼！";
+                return;
+            }
+
+            // 清除之前的結果
+            resultLabel.Text = "比對結果：\n\n";
+
+            int matchCount = 0;
+            string matchedNumbers = "";
+
+            // 計算有幾個號碼相符
+            for (int i = 0; i < userNumbers.Length; i++)
+            {
+                for (int j = 0; j < winningNumbers.Length; j++)
+                {
+                    if (userNumbers[i] == winningNumbers[j])
+                    {
+                        matchCount++;
+                        if (matchedNumbers == "")
+                        {
+                            matchedNumbers = userNumbers[i].ToString();
+                        }
+                        else
+                        {
+                            matchedNumbers += ", " + userNumbers[i].ToString();
+                        }
+                        break; // 找到相符號碼後跳出內層迴圈
+                    }
+                }
+            }
+
+            // 顯示比對結果
+            resultLabel.Text += $"中{matchCount}個號碼\n\n";
+            if (matchCount > 0)
+            {
+                resultLabel.Text += $"中獎號碼: {matchedNumbers}\n\n";
+            }
+
+            // 根據中獎數量顯示獎項
+            string prize = "";
+            if (matchCount == 5)
+            {
+                prize = "🎉 頭獎！";
+            }
+            else if (matchCount == 4)
+            {
+                prize = "🎊 貳獎！";
+            }
+            else if (matchCount == 3)
+            {
+                prize = "🎈 參獎！";
+            }
+            else if (matchCount == 2)
+            {
+                prize = "🎀 肆獎！";
+            }
+            else if (matchCount == 1)
+            {
+                prize = "🎁 伍獎！";
+            }
+            else
+            {
+                prize = "😢 沒中獎";
+            }
+            resultLabel.Text += prize;
+        }
+
+        /// <summary>
+        /// 開獎號碼按鈕的點擊事件處理程序
+        /// 當使用者點擊「開獎號碼」按鈕時執行，開啟檔案並讀取開獎號碼
+        /// </summary>
+        /// <param name="sender">事件發送者物件</param>
+        /// <param name="e">事件參數</param>
+        private void loadNumbersButton_Click(object sender, EventArgs e)
+        {
+            // 顯示開啟檔案對話框
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // 使用StreamReader讀取檔案
+                    using (StreamReader reader = new StreamReader(openFileDialog.FileName))
+                    {
+                        // 清除之前的資料
+                        winningNumbers = new int[5];
+                        winningNumbersListBox.Items.Clear();
+
+                        string line;
+                        int index = 0;
+
+                        // 逐行讀取檔案內容，讀取5個號碼
+                        while ((line = reader.ReadLine()) != null && index < 5)
+                        {
+                            // 略過空行
+                            if (string.IsNullOrWhiteSpace(line))
+                                continue;
+
+                            try
+                            {
+                                // 將每行轉換為整數
+                                int number = int.Parse(line.Trim());
+                                
+                                // 檢查號碼範圍是否有效（1-49）
+                                if (number >= 1 && number <= 49)
+                                {
+                                    winningNumbers[index] = number;
+                                    index++;
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"號碼 {number} 超出範圍（1-49），請檢查檔案格式！", "格式錯誤", 
+                                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+                            catch (FormatException)
+                            {
+                                MessageBox.Show($"第 {index + 1} 行格式錯誤：'{line}'，請確認每行只有一個數字！", "格式錯誤", 
+                                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+
+                        // 檢查是否成功讀取5個號碼
+                        if (index == 5)
+                        {
+                            // 在ListBox中顯示開獎號碼
+                            winningNumbersListBox.Items.Add("本期開獎號碼：");
+                            for (int i = 0; i < 5; i++)
+                            {
+                                winningNumbersListBox.Items.Add($"第{i + 1}個號碼: {winningNumbers[i]}");
+                            }
+
+                            // 檔案讀取完成後，啟用產生號碼按鈕
+                            generateButton.Enabled = true;
+                            
+                            MessageBox.Show($"成功載入開獎號碼：{string.Join(", ", winningNumbers)}", "載入完成", 
+                                          MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"檔案中只找到 {index} 個號碼，需要5個號碼！", "檔案內容不足", 
+                                          MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 檔案讀取錯誤處理
+                    MessageBox.Show($"讀取檔案時發生錯誤：{ex.Message}", "錯誤", 
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 離開按鈕的點擊事件處理程序
+        /// 當使用者點擊「離開」按鈕時執行
+        /// </summary>
+        /// <param name="sender">事件發送者物件</param>
+        /// <param name="e">事件參數</param>
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            // 關閉應用程式表單
+            this.Close();
+        }
+    }
+}

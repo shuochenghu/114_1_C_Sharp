@@ -1,0 +1,340 @@
+================================================
+建立文字檔案的三種方式比較
+================================================
+
+本文檔比較三種常用的建立文字檔案方式
+
+================================================
+方法一：File.CreateText() ?推薦初學者
+================================================
+
+【語法】
+```csharp
+StreamWriter writer = File.CreateText("output.txt");
+```
+
+【特點】
+? 最簡單的語法
+? 只需一個參數（檔案路徑）
+? 自動使用 UTF-8 編碼
+? 自動覆寫模式
+? 返回 StreamWriter 物件
+
+【適用情境】
+- 建立新的文字檔案
+- 使用 UTF-8 編碼
+- 覆寫現有檔案
+- 初學者學習
+
+【完整範例】
+```csharp
+StreamWriter writer = null;
+try 
+{
+    writer = File.CreateText("test.txt");
+    writer.WriteLine("第一行");
+    writer.WriteLine("第二行");
+    writer.Close();
+}
+finally 
+{
+    if (writer != null)
+        writer.Close();
+}
+```
+
+【優點】
+? 語法最簡潔
+? 不會設定錯誤
+? 意圖明確
+
+【缺點】
+? 不能附加內容
+? 不能選擇編碼
+? 靈活性較低
+
+================================================
+方法二：new StreamWriter() ?進階使用
+================================================
+
+【語法】
+```csharp
+StreamWriter writer = new StreamWriter("output.txt", false, Encoding.UTF8);
+```
+
+【參數說明】
+1. "output.txt" - 檔案路徑
+2. false - 覆寫模式 (true=附加)
+3. Encoding.UTF8 - UTF-8 編碼
+
+【特點】
+? 最靈活的方式
+? 可選擇覆寫或附加
+? 可選擇任何編碼
+? 完整控制所有參數
+
+【適用情境】
+- 需要附加內容到現有檔案
+- 需要特殊編碼（非 UTF-8）
+- 需要完整控制參數
+- 進階使用者
+
+【附加模式範例】
+```csharp
+// 附加到現有檔案
+StreamWriter writer = new StreamWriter("log.txt", true, Encoding.UTF8);
+writer.WriteLine("新的一行");
+writer.Close();
+```
+
+【自訂編碼範例】
+```csharp
+// 使用 Big5 編碼
+StreamWriter writer = new StreamWriter("test.txt", false, Encoding.GetEncoding("Big5"));
+writer.WriteLine("內容");
+writer.Close();
+```
+
+【優點】
+? 最靈活
+? 功能完整
+? 可附加內容
+
+【缺點】
+? 語法較長
+? 參數較多
+? 容易設定錯誤
+
+================================================
+方法三：File.WriteAllText() ?快速簡便
+================================================
+
+【語法】
+```csharp
+File.WriteAllText("output.txt", "完整內容", Encoding.UTF8);
+```
+
+【特點】
+? 一行程式碼完成
+? 不需 StreamWriter
+? 自動開啟和關閉
+? 最快速的方式
+
+【適用情境】
+- 一次性寫入所有內容
+- 內容已經完整準備好
+- 不需要逐行寫入
+- 快速開發
+
+【範例】
+```csharp
+string content = "第一行\n第二行\n第三行";
+File.WriteAllText("test.txt", content, Encoding.UTF8);
+```
+
+【陣列版本：File.WriteAllLines()】
+```csharp
+string[] lines = { "第一行", "第二行", "第三行" };
+File.WriteAllLines("test.txt", lines, Encoding.UTF8);
+```
+
+【優點】
+? 最快速
+? 最簡單
+? 不需 Close()
+
+【缺點】
+? 不適合大檔案
+? 不能逐行寫入
+? 內容需預先準備
+
+================================================
+詳細比較表
+================================================
+
+┌──────────────┬────────────┬──────────────┬──────────────┐
+│    特性      │CreateText()│ StreamWriter │WriteAllText()│
+├──────────────┼────────────┼──────────────┼──────────────┤
+│ 語法複雜度   │ 簡單       │ 中等         │ 最簡單       │
+│ 參數數量     │ 1 個       │ 3 個         │ 2-3 個       │
+│ 需要 Close() │ 需要       │ 需要         │ 不需要       │
+│ 逐行寫入     │ 可以       │ 可以         │ 不可以       │
+│ 附加模式     │ 不支援     │ 支援         │ 不支援       │
+│ 自訂編碼     │ 不支援     │ 支援         │ 支援         │
+│ 適合大檔案   │ 適合       │ 適合         │ 不適合       │
+│ 學習難度     │ 簡單       │ 中等         │ 簡單         │
+└──────────────┴────────────┴──────────────┴──────────────┘
+
+================================================
+使用建議流程圖
+================================================
+
+需要建立文字檔案？
+    ↓
+是否需要逐行寫入？
+    ↓ 是
+    ↓
+是否需要附加到現有檔案？
+    ↓ 否                    ↓ 是
+    ↓                       ↓
+File.CreateText()      new StreamWriter(path, true, ...)
+? 最簡單                ? 可附加
+
+    ↓ 否（一次性寫入）
+    ↓
+內容已經準備好？
+    ↓ 是
+    ↓
+File.WriteAllText()
+? 最快速
+
+================================================
+實際案例分析
+================================================
+
+【案例 1：維修明細（本專案）】
+需求：
+- 建立新檔案
+- 逐行寫入
+- UTF-8 編碼
+- 覆寫模式
+
+最佳選擇：? File.CreateText()
+
+```csharp
+writer = File.CreateText(fileName);
+writer.WriteLine("標題");
+writer.WriteLine("內容");
+writer.Close();
+```
+
+【案例 2：日誌記錄】
+需求：
+- 附加到現有檔案
+- 不刪除舊記錄
+- 逐行寫入
+
+最佳選擇：? new StreamWriter(path, true, ...)
+
+```csharp
+writer = new StreamWriter("log.txt", true, Encoding.UTF8);
+writer.WriteLine(DateTime.Now + ": 新記錄");
+writer.Close();
+```
+
+【案例 3：設定檔】
+需求：
+- 一次性寫入
+- 內容簡單
+- 快速完成
+
+最佳選擇：? File.WriteAllText()
+
+```csharp
+string config = "設定1=值1\n設定2=值2";
+File.WriteAllText("config.txt", config, Encoding.UTF8);
+```
+
+【案例 4：大型報表】
+需求：
+- 逐行產生
+- 檔案很大
+- 需要記憶體效率
+
+最佳選擇：? File.CreateText() 或 new StreamWriter()
+
+```csharp
+writer = File.CreateText("report.txt");
+for (int i = 0; i < 1000000; i++)
+{
+    writer.WriteLine("第 " + i + " 行");
+}
+writer.Close();
+```
+
+================================================
+效能比較（參考）
+================================================
+
+【小型檔案（< 100 行）】
+- File.WriteAllText: 最快
+- File.CreateText: 快
+- new StreamWriter: 快
+
+【中型檔案（100-10000 行）】
+- File.CreateText: 快
+- new StreamWriter: 快
+- File.WriteAllText: 中等
+
+【大型檔案（> 10000 行）】
+- File.CreateText: 最適合
+- new StreamWriter: 最適合
+- File.WriteAllText: 不適合（記憶體）
+
+================================================
+記憶體使用比較
+================================================
+
+【File.CreateText / new StreamWriter】
+```
+逐行寫入 → 記憶體使用少
+[單行] → 檔案
+[單行] → 檔案
+[單行] → 檔案
+```
+
+【File.WriteAllText】
+```
+全部在記憶體 → 一次寫入
+[完整內容................] → 檔案
+```
+
+================================================
+編碼支援比較
+================================================
+
+【File.CreateText()】
+- 固定 UTF-8
+- 無法更改
+
+【new StreamWriter()】
+- 支援所有編碼
+```csharp
+Encoding.UTF8      // UTF-8
+Encoding.Unicode   // UTF-16
+Encoding.ASCII     // ASCII
+Encoding.GetEncoding("Big5")  // Big5
+```
+
+【File.WriteAllText()】
+- 支援所有編碼
+- 需明確指定
+
+================================================
+選擇建議總結
+================================================
+
+【初學者】
+推薦：File.CreateText()
+原因：語法簡單，不易出錯
+
+【日常開發】
+推薦：File.CreateText() + File.WriteAllText()
+原因：涵蓋大部分情況
+
+【進階功能】
+推薦：new StreamWriter()
+原因：需要附加或特殊編碼
+
+【快速開發】
+推薦：File.WriteAllText()
+原因：最快速完成
+
+【本專案選擇】
+? File.CreateText()
+原因：
+- 符合需求（建立新檔、UTF-8、覆寫）
+- 語法最簡潔
+- 容易理解和維護
+
+================================================

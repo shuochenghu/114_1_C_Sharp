@@ -1,0 +1,58 @@
+================================================
+StreamWriter 快速參考
+================================================
+
+【基本用法】
+StreamWriter writer = new StreamWriter("檔案.txt", false, Encoding.UTF8);
+writer.WriteLine("這是一行文字");
+writer.Close();
+
+【建構函式參數】
+new StreamWriter(
+    "檔案路徑",      // 要寫入的檔案
+    false,           // false=覆寫, true=附加
+    Encoding.UTF8    // UTF-8編碼（支援中文）
+);
+
+【常用方法】
+writer.WriteLine("文字");  // 寫入一行並換行
+writer.Write("文字");      // 寫入但不換行
+writer.WriteLine();        // 空白行
+writer.Close();            // 關閉檔案
+
+【完整範例】
+StreamWriter writer = null;
+try {
+    writer = new StreamWriter("test.txt", false, Encoding.UTF8);
+    writer.WriteLine("標題");
+    writer.WriteLine("內容");
+    writer.Close();
+    MessageBox.Show("成功！");
+}
+catch (Exception ex) {
+    MessageBox.Show("錯誤：" + ex.Message);
+}
+finally {
+    if (writer != null)
+        writer.Close();
+}
+
+【重要提醒】
+? 使用後必須 Close()
+? 使用 finally 確保關閉
+? 使用 UTF-8 支援中文
+? false = 覆寫, true = 附加
+
+【三種寫入模式】
+┌────────┬──────────┬──────────────┐
+│ 參數   │   模式   │     說明     │
+├────────┼──────────┼──────────────┤
+│ false  │ 覆寫模式 │ 刪除舊內容   │
+│ true   │ 附加模式 │ 保留舊內容   │
+└────────┴──────────┴──────────────┘
+
+【需要的 using】
+using System.IO;    // StreamWriter
+using System.Text;  // Encoding
+
+================================================

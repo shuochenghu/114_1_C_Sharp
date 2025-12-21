@@ -1,0 +1,106 @@
+﻿# C# 樂透號碼產生器 - 考試題目
+
+## 專案概述
+開發一個樂透號碼產生器Windows Forms應用程式，能夠產生隨機號碼、讀取開獎號碼，並進行中獎比對。
+
+## 技術需求
+- **.NET Framework 4.8**
+- **Windows Forms** 
+- **C# 基本語法**（陣列、迴圈、條件判斷）
+
+## 功能要求
+
+### 1. 介面設計
+- 5個標籤顯示產生的號碼
+- 3個按鈕：產生號碼、開獎號碼、離開
+- 1個ListBox顯示開獎號碼
+- 1個標籤顯示比對結果
+- 字型大小18pt，支援繁體中文
+
+### 2. 號碼產生功能
+- 產生5個不重複的隨機數字（1-49範圍）
+- 使用基本迴圈和條件判斷實現
+- 顯示在介面標籤上
+
+### 3. 檔案讀取功能
+- 使用`OpenFileDialog`選擇檔案
+- 使用`StreamReader`讀取文字檔案
+- 檔案格式：每行一個數字，共5行
+- 完整錯誤處理（格式錯誤、範圍檢查）
+
+### 4. 比對功能
+- 比較使用者號碼與開獎號碼
+- 計算中獎數量
+- 顯示獎項等級（頭獎、貳獎、參獎、肆獎、伍獎）
+
+### 5. 控制邏輯
+- 必須先載入開獎號碼才能產生號碼
+- 適當的按鈕啟用/停用控制
+
+## 必須實作的方法
+
+### 事件處理方法
+```csharp
+private void generateButton_Click(object sender, EventArgs e)
+private void loadNumbersButton_Click(object sender, EventArgs e)
+private void exitButton_Click(object sender, EventArgs e)
+```
+
+### 核心功能方法
+```csharp
+private void CompareWithWinningNumbers(int[] userNumbers)
+// 其他輔助方法可自行設計
+```
+
+## 核心算法
+
+### 不重複亂數產生
+```csharp
+for (int i = 0; i < 5; i++) {
+    int number;
+    bool isDuplicate;
+    do {
+        isDuplicate = false;
+        number = rand.Next(1, 50);
+        // 檢查重複的for迴圈
+        for (int j = 0; j < i; j++) {
+            if (numbers[j] == number) {
+                isDuplicate = true;
+                break;
+            }
+        }
+    } while (isDuplicate);
+    numbers[i] = number;
+}
+```
+
+### 檔案讀取
+```csharp
+using (StreamReader reader = new StreamReader(fileName)) {
+    // 逐行讀取和驗證
+}
+```
+
+### 號碼比對
+```csharp
+// 雙重for迴圈比對
+for (int i = 0; i < userNumbers.Length; i++) {
+    for (int j = 0; j < winningNumbers.Length; j++) {
+        if (userNumbers[i] == winningNumbers[j]) {
+            // 計算中獎
+        }
+    }
+}
+```
+
+## 評分標準
+- **功能完整性**（40%）：所有功能正常運作
+- **程式邏輯**（25%）：算法正確性
+- **錯誤處理**（20%）：異常處理完整度  
+- **介面設計**（15%）：使用者體驗
+
+## 注意事項
+- 使用基本語法，避免進階資料結構（如List）
+- 完整的中文註解
+- 適當的變數命名
+- 完善的錯誤處理機制

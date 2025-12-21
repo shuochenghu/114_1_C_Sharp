@@ -1,0 +1,46 @@
+================================================
+Decimal 型態快速參考
+================================================
+
+【宣告】
+decimal price = 100m;
+decimal tax = 0.06m;
+const decimal RATE = 600m;
+
+【注意】
+所有 decimal 數值必須加 'm' 或 'M' 後綴！
+
+【轉換】
+// 字串轉 decimal
+decimal.TryParse("123.45", out decimal value);
+decimal amount = decimal.Parse("678.90");
+
+// decimal 轉字串
+amount.ToString("N0");  // 123,456（無小數）
+amount.ToString("N2");  // 123,456.78（兩位小數）
+amount.ToString("C");   // NT$123,456（貨幣格式）
+
+【運算】
+decimal total = price * quantity;
+decimal tax = amount * 0.06m;
+decimal avg = total / count;
+
+【常見錯誤】
+? decimal price = 100;      // 錯誤：缺少 'm'
+? decimal tax = 0.06;        // 錯誤：缺少 'm'
+? decimal price = 100m;       // 正確
+? decimal tax = 0.06m;        // 正確
+
+【優點】
+? 精確的十進位計算
+? 適合金錢運算
+? 無浮點數誤差
+? 符合財務標準
+
+【範圍】
+±1.0 × 10^-28 到 ±7.9 × 10^28
+
+【精度】
+28-29 位有效數字
+
+================================================

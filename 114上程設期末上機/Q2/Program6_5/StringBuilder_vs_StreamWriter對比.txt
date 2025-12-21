@@ -1,0 +1,273 @@
+================================================
+StringBuilder vs StreamWriter 程式碼對比
+================================================
+
+本文檔展示兩種寫入檔案方式的程式碼差異
+
+================================================
+方法一：StringBuilder（修改前）
+================================================
+
+```csharp
+private void SaveFile()
+{
+    try
+    {
+        // 1. 建立 StringBuilder
+        StringBuilder details = new StringBuilder();
+        
+        // 2. 逐行加入內容到記憶體
+        details.AppendLine("標題");
+        details.AppendLine("第一行");
+        details.AppendLine("第二行");
+        
+        // 3. 一次性寫入檔案
+        System.IO.File.WriteAllText(
+            "output.txt", 
+            details.ToString(), 
+            Encoding.UTF8);
+        
+        MessageBox.Show("成功！");
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show("錯誤：" + ex.Message);
+    }
+}
+```
+
+【特點】
+? 程式碼簡單
+? 一次性寫入
+? 適合小檔案
+? 全部內容在記憶體
+? 需要額外的 ToString()
+
+================================================
+方法二：StreamWriter（修改後）
+================================================
+
+```csharp
+private void SaveFile()
+{
+    StreamWriter writer = null;
+    try
+    {
+        // 1. 開啟檔案串流
+        writer = new StreamWriter(
+            "output.txt", 
+            false, 
+            Encoding.UTF8);
+        
+        // 2. 逐行直接寫入檔案
+        writer.WriteLine("標題");
+        writer.WriteLine("第一行");
+        writer.WriteLine("第二行");
+        
+        // 3. 關閉檔案
+        writer.Close();
+        
+        MessageBox.Show("成功！");
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show("錯誤：" + ex.Message);
+    }
+    finally
+    {
+        // 4. 確保檔案被關閉
+        if (writer != null)
+        {
+            writer.Close();
+        }
+    }
+}
+```
+
+【特點】
+? 直接寫入檔案
+? 記憶體使用少
+? 適合任何大小
+? 明確的資源管理
+? 需要 finally 區塊
+? 程式碼較長
+
+================================================
+詳細對比
+================================================
+
+【步驟 1：準備寫入】
+
+StringBuilder：
+```csharp
+StringBuilder details = new StringBuilder();
+```
+- 建立字串建構器
+- 在記憶體中操作
+
+StreamWriter：
+```csharp
+StreamWriter writer = null;
+writer = new StreamWriter("file.txt", false, Encoding.UTF8);
+```
+- 開啟檔案串流
+- 直接連接到檔案
+
+【步驟 2：加入內容】
+
+StringBuilder：
+```csharp
+details.AppendLine("文字");
+details.AppendLine("更多文字");
+```
+- 加入到記憶體
+
+StreamWriter：
+```csharp
+writer.WriteLine("文字");
+writer.WriteLine("更多文字");
+```
+- 直接寫入檔案
+
+【步驟 3：完成寫入】
+
+StringBuilder：
+```csharp
+File.WriteAllText("file.txt", details.ToString(), Encoding.UTF8);
+```
+- 轉換為字串
+- 一次性寫入檔案
+
+StreamWriter：
+```csharp
+writer.Close();
+```
+- 關閉檔案
+- 已經寫入完成
+
+================================================
+實際應用範例
+================================================
+
+【範例：寫入學生成績】
+
+使用 StringBuilder：
+```csharp
+StringBuilder sb = new StringBuilder();
+sb.AppendLine("學生成績表");
+sb.AppendLine("==========");
+sb.AppendLine("張三: 85分");
+sb.AppendLine("李四: 92分");
+sb.AppendLine("王五: 78分");
+File.WriteAllText("成績.txt", sb.ToString(), Encoding.UTF8);
+```
+
+使用 StreamWriter：
+```csharp
+StreamWriter writer = null;
+try {
+    writer = new StreamWriter("成績.txt", false, Encoding.UTF8);
+    writer.WriteLine("學生成績表");
+    writer.WriteLine("==========");
+    writer.WriteLine("張三: 85分");
+    writer.WriteLine("李四: 92分");
+    writer.WriteLine("王五: 78分");
+    writer.Close();
+}
+finally {
+    if (writer != null) writer.Close();
+}
+```
+
+【範例：寫入維修明細】
+
+使用 StringBuilder：
+```csharp
+StringBuilder details = new StringBuilder();
+details.AppendLine("維修明細");
+details.AppendLine("項目: 更換機油");
+details.AppendLine("費用: NT$780");
+details.AppendLine("總計: NT$780");
+File.WriteAllText(fileName, details.ToString(), Encoding.UTF8);
+```
+
+使用 StreamWriter：
+```csharp
+StreamWriter writer = null;
+try {
+    writer = new StreamWriter(fileName, false, Encoding.UTF8);
+    writer.WriteLine("維修明細");
+    writer.WriteLine("項目: 更換機油");
+    writer.WriteLine("費用: NT$780");
+    writer.WriteLine("總計: NT$780");
+    writer.Close();
+}
+finally {
+    if (writer != null) writer.Close();
+}
+```
+
+================================================
+效能比較（參考）
+================================================
+
+【小型檔案（< 100 行）】
+StringBuilder：快
+StreamWriter：快
+結論：差異不大
+
+【中型檔案（100-10000 行）】
+StringBuilder：中等
+StreamWriter：快
+結論：StreamWriter 略優
+
+【大型檔案（> 10000 行）】
+StringBuilder：慢（記憶體不足）
+StreamWriter：快
+結論：StreamWriter 明顯較優
+
+================================================
+選擇建議
+================================================
+
+【使用 StringBuilder 當：】
+? 檔案很小（< 1 MB）
+? 需要在寫入前處理字串
+? 快速開發原型
+? 不考慮記憶體使用
+
+【使用 StreamWriter 當：】
+? 檔案大小不確定
+? 需要逐行寫入大量資料
+? 記憶體受限
+? 教學基本檔案 I/O
+? 需要明確的資源管理
+
+【本專案選擇 StreamWriter 因為：】
+1. 符合初階教學目標
+2. 展示基本檔案操作
+3. 明確的資源管理
+4. 適合任何大小的明細
+
+================================================
+記憶體使用示意圖
+================================================
+
+【StringBuilder 方式】
+```
+記憶體: [完整內容字串........................]
+        ↓ ToString()
+        ↓ WriteAllText()
+檔案:   [完整內容]
+```
+
+【StreamWriter 方式】
+```
+記憶體: [單行]
+        ↓ WriteLine()
+檔案:   [逐行寫入.................]
+        [.........................]
+        [.........................]
+```
+
+================================================
